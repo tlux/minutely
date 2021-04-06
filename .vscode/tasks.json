@@ -1,0 +1,43 @@
+{
+  "version": "2.0.0",
+  "tasks": [{
+    "label": "RSpec Test",
+    "type": "shell",
+    "command": "bundle exec rspec",
+    "group": "test",
+    "presentation": {
+      "echo": true,
+      "reveal": "always",
+      "focus": false,
+      "panel": "shared",
+      "showReuseMessage": true,
+      "clear": true
+    }
+  }, {
+    "label": "RSpec Test File",
+    "type": "shell",
+    "command": "bundle exec rspec ${relativeFile}",
+    "group": "test",
+    "presentation": {
+      "echo": true,
+      "reveal": "always",
+      "focus": false,
+      "panel": "shared",
+      "showReuseMessage": true,
+      "clear": true
+    }
+  }, {
+    "label": "RSpec Test Line",
+    "type": "shell",
+    "command": "bundle exec rspec ${relativeFile}:${lineNumber}",
+    "group": "test",
+    "presentation": {
+      "echo": true,
+      "reveal": "always",
+      "focus": false,
+      "panel": "shared",
+      "showReuseMessage": true,
+      "clear": true
+    }
+  }]
+}
