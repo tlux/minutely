@@ -4,7 +4,7 @@ require_relative 'lib/day_time/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'day_time'
-  spec.version = MinuteTime::VERSION
+  spec.version = DayTime::VERSION
   spec.authors = ['Tobias Casper']
   spec.email = ['tobias.casper@gmail.com']
 

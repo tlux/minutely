@@ -16,7 +16,7 @@ module DayTime
     alias min minute
 
     ##
-    # Builds a new `MinuteTime`.
+    # Builds a new `DayTime::Time`.
     #
     # @param hour [Fixnum] a number between 0 and 23
     #
@@ -32,15 +32,16 @@ module DayTime
     end
 
     ##
-    # Parses the given input and returns a `MinuteTime` or `nil`, respectively.
+    # Parses the given input and returns a `DayTime::Time` or `nil`,
+    # respectively.
     #
-    # @param obj [MinuteTime, #hour, #min, Fixnum, String, nil]
+    # @param obj [DayTime::Time, #hour, #min, Fixnum, String, nil]
     #
-    # @return [MinuteTime, nil]
+    # @return [DayTime::Time, nil]
     #
     # @raise [ArgumentError] when the object does not represent a valid time
     def self.parse(obj)
-      return nil if obj.blank?
+      return nil if Utils.blank?(obj)
       return obj if obj.is_a?(self)
 
       if obj.respond_to?(:hour) && obj.respond_to?(:min)
@@ -76,9 +77,9 @@ module DayTime
     end
 
     ##
-    # Gets the next minute as new `MinuteTime`.
+    # Gets the next minute as new `DayTime::Time`.
     #
-    # @return [MinuteTime]
+    # @return [DayTime::Time]
     def succ
       return self.class.new((hour + 1) % 24, 0) if minute == 59
 

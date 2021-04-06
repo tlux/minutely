@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-describe DayTime::Time do
+require 'date'
+require 'ostruct'
+
+RSpec.describe DayTime::Time do
   describe '#initialize' do
     subject { described_class.new(14, 32) }
 
@@ -40,7 +43,7 @@ describe DayTime::Time do
       end
     end
 
-    context 'MinuteTime' do
+    context 'DayTime::Time' do
       it 'returns same instance' do
         time = described_class.new(14, 32)
 
@@ -49,7 +52,7 @@ describe DayTime::Time do
     end
 
     context 'DateTime' do
-      it 'returns MinuteTime' do
+      it 'returns DayTime::Time' do
         datetime = DateTime.now
 
         expect(described_class.parse(datetime))
@@ -58,7 +61,7 @@ describe DayTime::Time do
     end
 
     context 'Time' do
-      it 'returns MinuteTime' do
+      it 'returns DayTime::Time' do
         time = Time.now
 
         expect(described_class.parse(time))
@@ -71,7 +74,7 @@ describe DayTime::Time do
         expect(described_class.parse('')).to be nil
       end
 
-      it 'returns MinuteTime on success' do
+      it 'returns DayTime::Time on success' do
         expect(described_class.parse('14:32')).to eq described_class.new(14, 32)
         expect(described_class.parse('03:04')).to eq described_class.new(3, 4)
         expect(described_class.parse('3:04')).to eq described_class.new(3, 4)
@@ -101,7 +104,7 @@ describe DayTime::Time do
     end
 
     context 'Integer' do
-      it 'returns MinuteTime on success' do
+      it 'returns DayTime::Time on success' do
         expect(described_class.parse(1432)).to eq described_class.new(14, 32)
         expect(described_class.parse(304)).to eq described_class.new(3, 4)
         expect(described_class.parse(0)).to eq described_class.new(0, 0)
@@ -139,14 +142,14 @@ describe DayTime::Time do
       expect(time <=> no_time).to be nil
     end
 
-    it 'is 0 when MinuteTimes are equal' do
+    it 'is 0 when DayTime::Times are equal' do
       time1 = described_class.new(14, 32)
       time2 = described_class.new(14, 32)
 
       expect(time1 <=> time2).to eq 0
     end
 
-    it 'is -1 when first MinuteTime is less' do
+    it 'is -1 when first DayTime::Time is less' do
       time1 = described_class.new(14, 31)
       time2 = described_class.new(14, 32)
       time3 = described_class.new(15, 32)
@@ -156,7 +159,7 @@ describe DayTime::Time do
       expect(time2 <=> time3).to eq(-1)
     end
 
-    it 'is 1 when second MinuteTime is greater' do
+    it 'is 1 when second DayTime::Time is greater' do
       time1 = described_class.new(15, 32)
       time2 = described_class.new(14, 32)
       time3 = described_class.new(14, 31)

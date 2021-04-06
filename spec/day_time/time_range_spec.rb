@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-describe DayTime::TimeRange do
+RSpec.describe DayTime::TimeRange do
   describe '#initialize' do
     it 'sets #from from first arg' do
-      from = MinuteTime.new(12, 0)
-      to = MinuteTime.new(17, 45)
+      from = DayTime::Time.new(12, 0)
+      to = DayTime::Time.new(17, 45)
 
       subject = described_class.new(from, to)
 
@@ -12,8 +12,8 @@ describe DayTime::TimeRange do
     end
 
     it 'sets #to from second arg' do
-      from = MinuteTime.new(12, 0)
-      to = MinuteTime.new(17, 45)
+      from = DayTime::Time.new(12, 0)
+      to = DayTime::Time.new(17, 45)
 
       subject = described_class.new(from, to)
 
@@ -21,8 +21,8 @@ describe DayTime::TimeRange do
     end
 
     it 'allows setting to arg to 0 am' do
-      from = MinuteTime.new(12, 0)
-      to = MinuteTime.new(0, 0)
+      from = DayTime::Time.new(12, 0)
+      to = DayTime::Time.new(0, 0)
 
       subject = described_class.new(from, to)
 
@@ -38,7 +38,7 @@ describe DayTime::TimeRange do
       end
     end
 
-    context 'MinuteTimeRange' do
+    context 'DayTime::TimeRange' do
       it 'returns same instance' do
         time = described_class.new(14, 32)
 
@@ -60,14 +60,14 @@ describe DayTime::TimeRange do
           .to raise_error ArgumentError, 'invalid time range'
       end
 
-      it 'returns MinuteTimeRange when start and end are integers' do
+      it 'returns DayTime::TimeRange when start and end are integers' do
         expect(described_class.parse([123, 234]))
-          .to eq MinuteTimeRange.new('1:23', '2:34')
+          .to eq DayTime::TimeRange.new('1:23', '2:34')
       end
 
-      it 'returns MinuteTimeRange when start and end are strings' do
+      it 'returns DayTime::TimeRange when start and end are strings' do
         expect(described_class.parse(['1:23', '2:34']))
-          .to eq MinuteTimeRange.new('1:23', '2:34')
+          .to eq DayTime::TimeRange.new('1:23', '2:34')
       end
     end
 
@@ -76,9 +76,9 @@ describe DayTime::TimeRange do
         expect(described_class.parse({})).to be nil
       end
 
-      it 'returns MinuteTimeRange for valid start and end' do
+      it 'returns DayTime::TimeRange for valid start and end' do
         expect(described_class.parse(from: '1:23', to: '2:34'))
-          .to eq MinuteTimeRange.new('1:23', '2:34')
+          .to eq DayTime::TimeRange.new('1:23', '2:34')
       end
 
       it 'raises when Hash does not include both :from and :to keys' do
@@ -109,7 +109,7 @@ describe DayTime::TimeRange do
         expect(described_class.parse('')).to be nil
       end
 
-      it 'returns MinuteTimeRange for valid start and end' do
+      it 'returns DayTime::TimeRange for valid start and end' do
         subject = described_class.parse('14:00-17:45')
 
         expect(subject.from.hour).to eq 14
@@ -118,7 +118,7 @@ describe DayTime::TimeRange do
         expect(subject.to.minute).to eq 45
       end
 
-      it 'returns MinuteTimeRange for valid start and 0:00 end' do
+      it 'returns DayTime::TimeRange for valid start and 0:00 end' do
         subject = described_class.parse('14:00-00:00')
 
         expect(subject.from.hour).to eq 14

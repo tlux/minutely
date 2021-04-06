@@ -8,4 +8,5 @@ require_relative 'day_time/version'
 module DayTime
   autoload :Time, 'day_time/time'
   autoload :TimeRange, 'day_time/time_range'
+  autoload :Utils, 'day_time/utils'
 end

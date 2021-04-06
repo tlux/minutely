@@ -6,21 +6,21 @@ module DayTime
   # and minutes.
   #
   # @!attribute [r] from
-  #   @return [MinuteTimeRange]
+  #   @return [DayTime::Time]
   #
   # @!attribute [r] to
-  #   @return [MinuteTimeRange]
+  #   @return [DayTime::Time]
   class TimeRange
     include Comparable
 
     attr_reader :from, :to
 
     ##
-    # Builds a new `MinuteTimeRange`.
+    # Builds a new `DayTime::TimeRange`.
     #
-    # @param from [MinuteTimeRange, String, Fixnum]
+    # @param from [DayTime::Time, String, Fixnum]
     #
-    # @param to [MinuteTimeRange, String, Fixnum]
+    # @param to [DayTime::Time, String, Fixnum]
     #
     # @raise [ArgumentError] when first or second argument evaluates to `nil`.
     def initialize(from, to)
@@ -32,12 +32,12 @@ module DayTime
 
     class << self
       ##
-      # Parses the given input and returns a `MinuteTimeRange` or `nil`,
+      # Parses the given input and returns a `DayTime::TimeRange` or `nil`,
       # respectively.
       #
-      # @param obj [MinuteTimeRange, Array, Hash, String, nil]
+      # @param obj [DayTime::TimeRange, Array, Hash, String, nil]
       #
-      # @return [MinuteTimeRange, nil]
+      # @return [DayTime::TimeRange, nil]
       #
       # @raise [ArgumentError] when the object does not represent a valid time
       #   range
@@ -58,7 +58,7 @@ module DayTime
       private
 
       def parse_array(items)
-        if items.length != 2 || items.any?(&:blank?)
+        if items.length != 2 || items.any? { |item| Utils.blank?(item) }
           raise ArgumentError, 'invalid time range'
         end
 
