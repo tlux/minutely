@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source 'http://gems.dev.i22.de/'
 
 # Specify your gem's dependencies in day_time.gemspec
 gemspec

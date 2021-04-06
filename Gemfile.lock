@@ -4,7 +4,7 @@ PATH
     day_time (0.1.0)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://gems.dev.i22.de/
   specs:
     ast (2.4.0)
     diff-lcs (1.3)
