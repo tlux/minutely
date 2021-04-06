@@ -1,6 +1,8 @@
 # DayTime
 
-Classes for representing the time of a day by using only hours and minutes.
+Classes for representing the time of a day by using only hours and minutes. This
+is particularly useful when implementing business logic that has to deal with
+opening times.
 
 ## Installation
 
