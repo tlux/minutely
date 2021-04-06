@@ -24,7 +24,79 @@ gem install day_time
 
 ## Usage
 
-TBD
+### Time
+
+Create a new day time:
+
+```ruby
+time1 = DayTime::Time.new(21, 42)
+time1.to_s # => "21:42"
+
+time2 = DayTime::Time.new(9, 3)
+time2.to_s # => "09:03"
+```
+
+Parse day time using `DateTime`, `Time`, `String` or `Integer`:
+
+```ruby
+DayTime::Time.parse(DateTime.now)
+DayTime::Time.parse(Time.now)
+DayTime::Time.parse("9:03").to_s # => "09:03"
+DayTime::Time.parse(903).to_s # => "09:03"
+```
+
+Get the next minute:
+
+```ruby
+time = DayTime::Time.parse("9:03")
+time.succ.to_s # => "9:04"
+```
+
+Compare and sort by times:
+
+```ruby
+time1 = DayTime::Time.parse('9:03')
+time2 = DayTime::Time.parse('21:42')
+
+time1 == time2 # => false
+time1 < time2 # => true
+time1 <= time2 # => true
+time1 >= time2 # => false
+time1 > time2 # => false
+
+[
+  DayTime::Time.parse('21:42'),
+  DayTime::Time.parse('9:03'),
+  DayTime::Time.parse('15:00')
+].sort.map(&:to_s) # => ["09:03", "15:00", "21:42"]
+```
+
+### Time Range
+
+Create a new time range:
+
+```ruby
+start_time = DayTime::Time.new(9, 3)
+end_time = DayTime::Time.new(21, 42)
+
+DayTime::TimeRange.new(start_time, end_time).to_s # => "09:03-21:42"
+```
+
+Parse time range using `String`:
+
+```ruby
+DayTime::TimeRange.parse('9:03-21:42')
+```
+
+Parse time range using `Hash`:
+
+```ruby
+DayTime::TimeRange.parse(from: '9:03', to: '21:42')
+```
+
+## TODO
+
+- `DayTime::TimeRange.include?`
 
 ## Development
 
@@ -40,4 +112,5 @@ git commits and the created tag, and push the `.gem` file to
 
 ## Contributing
 
-Bug reports and pull requests are welcome on the internal GitLab.
+Bug reports and pull requests are welcome on the [internal i22
+GitLab](https://gitlab.i22.de/pakete/ruby/day_time).
