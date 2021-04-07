@@ -85,6 +85,11 @@ module DayTime
       [from, to] <=> [other.from, other.to]
     end
 
+    def include?(time)
+      time = DayTime::Time.parse(time)
+      from <= time && time <= to
+    end
+
     def to_a
       [from, to].map(&:to_i)
     end

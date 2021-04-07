@@ -96,9 +96,14 @@ Parse time range using `Hash`:
 DayTime::TimeRange.parse(from: '9:03', to: '21:42')
 ```
 
-## TODO
+Check whether time range includes time:
 
-- `DayTime::TimeRange.include?`
+```ruby
+range = DayTime::TimeRange.parse(from: '9:03', to: '21:42')
+
+range.include?('10:00') # => true
+range.include?('22:00') # => false
+```
 
 ## Development
 

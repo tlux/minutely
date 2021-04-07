@@ -166,4 +166,28 @@ RSpec.describe DayTime::TimeRange do
       expect(subject.as_json).to eq subject.to_s
     end
   end
+
+  describe '#include?' do
+    subject { described_class.new('9:00', '16:45') }
+
+    it 'is true when time range includes time' do
+      expect(subject.include?('9:00')).to be true
+      expect(subject.include?('12:30')).to be true
+      expect(subject.include?('16:45')).to be true
+    end
+
+    it 'is false when time range not includes time' do
+      expect(subject.include?('0:00')).to be false
+      expect(subject.include?('8:59')).to be false
+      expect(subject.include?('16:46')).to be false
+    end
+
+    it 'raises when argument invalid' do
+      expect { subject.include?('14:000') }
+        .to raise_error ArgumentError, 'invalid time string'
+
+      expect { subject.include?(14_000) }
+        .to raise_error ArgumentError, 'invalid hour'
+    end
+  end
 end
