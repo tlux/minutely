@@ -6,24 +6,23 @@ opening times.
 
 ## Installation
 
-Please ensure to use the i22 Gem server in your local project. The Gemfile.lock
+Please ensure to use the i22 Gem server in your local project. Add the following
+line to the top of your Gemfile.
 
-Add this line to your application's Gemfile:
+```ruby
+source 'http://gems.dev.i22.de/'
+```
+
+After that, add this line to your Gemfile:
 
 ```ruby
 gem 'day_time'
 ```
 
-And then execute:
+Then execute:
 
 ```sh
 bundle install
-```
-
-Or install it yourself as:
-
-```sh
-gem install day_time
 ```
 
 ## Usage
@@ -113,6 +112,16 @@ After checking out the repo, run `bundle install` to install dependencies. Run
 `bundle exec rspec` to run the tests. Linting an formatting are supported using
 `bundle exec rubocop`. You can also run `bin/console` for an interactive prompt
 that will allow you to experiment.
+
+To publish the Gem, create a tag representing the current Gem version (see
+`version.rb`):
+
+```sh
+git tag v1.2.3
+git push --tag
+```
+
+Then run `./bin/publish` to build the Gem and push it to the Gem server.
 
 ## Contributing
 
