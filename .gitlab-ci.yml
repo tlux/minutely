@@ -1,4 +1,4 @@
-image: gitlab.i22.de:5001/docker/i22-ubuntu/asdf:20.04
+image: gitlab.i22.de:5001/docker/i22-ubuntu:20.04
 
 before_script:
   - gem install bundler -v 2.2.15
