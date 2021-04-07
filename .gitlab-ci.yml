@@ -16,6 +16,8 @@ lint:
 test:
   script:
     - bundle exec rspec
+  coverage: /\(\d+.\d+%\)/
   artifacts:
-    paths:
-      - coverage
+    reports:
+      cobertura: coverage/coverage.xml
+    expire_in: 1 day

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require 'day_time'
-require 'simplecov'
+require 'simplecov-cobertura'
 
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 SimpleCov.start
 
 RSpec.configure do |config|
