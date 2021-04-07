@@ -1,15 +1,16 @@
 {
   "editor.tabSize": 2,
   "files.insertFinalNewline": true,
-  "ruby.useBundler": true, //run non-lint commands with bundle exec
-  "ruby.useLanguageServer": true, // use the internal language server (see below)
+  "files.trimTrailingWhitespace": true,
+  "ruby.format": "rubocop",
   "ruby.lint": {
-    "rubocop": {
-      "useBundler": true // enable rubocop via bundler
-    },
     "reek": {
-      "useBundler": true // enable reek via bundler
+      "useBundler": true
+    },
+    "rubocop": {
+      "useBundler": true
     }
   },
-  "ruby.format": "rubocop" // use rubocop for formatting
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true
 }
