@@ -4,7 +4,11 @@ require 'day_time'
 require 'simplecov-cobertura'
 
 SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
-SimpleCov.start
+SimpleCov.start do
+  add_filter do |source_file|
+    !source_file.filename.include?('/lib')
+  end
+end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
