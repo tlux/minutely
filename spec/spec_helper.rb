@@ -3,10 +3,12 @@
 require 'day_time'
 require 'simplecov-cobertura'
 
+LIB_DIR = File.expand_path('../lib', __dir__)
+
 SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 SimpleCov.start do
   add_filter do |source_file|
-    !source_file.filename.include?('/lib')
+    !source_file.filename.start_with?(LIB_DIR)
   end
 end
 
