@@ -31,7 +31,6 @@ module DayTime
       @minute = minute
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
     ##
     # Parses the given input and returns a `DayTime::Time` or `nil`,
     # respectively.
@@ -55,7 +54,6 @@ module DayTime
       else raise ArgumentError, 'invalid time'
       end
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
     def self.parse_integer(value)
       hour = value / 100

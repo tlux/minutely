@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = 'Classes for representing the time of a day by using only hours and minutes'
   spec.homepage = 'https://gitlab.i22.de/pakete/ruby/day_time'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0')
 
   spec.metadata['allowed_push_host'] = 'http://gems.dev.i22.de'
   spec.metadata['homepage_uri'] = spec.homepage
