@@ -16,3 +16,6 @@ lint:
 test:
   script:
     - bundle exec rspec
+  artifacts:
+    paths:
+      - coverage
