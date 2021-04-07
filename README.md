@@ -45,14 +45,14 @@ Parse day time using `DateTime`, `Time`, `String` or `Integer`:
 ```ruby
 DayTime::Time.parse(DateTime.now)
 DayTime::Time.parse(Time.now)
-DayTime::Time.parse("9:03").to_s # => "09:03"
+DayTime::Time.parse('9:03').to_s # => "09:03"
 DayTime::Time.parse(903).to_s # => "09:03"
 ```
 
 Get the next minute:
 
 ```ruby
-time = DayTime::Time.parse("9:03")
+time = DayTime::Time.parse('9:03')
 time.succ.to_s # => "9:04"
 ```
 
