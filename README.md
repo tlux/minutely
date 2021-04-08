@@ -113,15 +113,22 @@ After checking out the repo, run `bundle install` to install dependencies. Run
 `bundle exec rubocop`. You can also run `bin/console` for an interactive prompt
 that will allow you to experiment.
 
-To publish the Gem, create a tag representing the current Gem version (see
-`version.rb`):
+To publish the Gem:
 
-```sh
-git tag v1.2.3
-git push --tag
-```
+1. Update the version in `lib/day_time/version.rb`
 
-Then run `./bin/publish` to build the Gem and push it to the Gem server.
+2. Create and push a tag representing the new Gem version:
+
+   ```sh
+   git tag v1.2.3
+   git push --tag
+   ```
+
+3. Run the publish script to build the Gem and push it to the server:
+
+   ```sh
+   ./bin/publish
+   ```
 
 ## Contributing
 
