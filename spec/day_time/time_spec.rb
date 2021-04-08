@@ -4,6 +4,10 @@ require 'date'
 require 'ostruct'
 
 RSpec.describe DayTime::Time do
+  it 'includes Comparable' do
+    expect(described_class).to include Comparable
+  end
+
   describe '#initialize' do
     subject { described_class.new(14, 32) }
 
@@ -33,6 +37,18 @@ RSpec.describe DayTime::Time do
     it 'raises ArgumentError when minute greater than 59' do
       expect { described_class.new(14, 60) }
         .to raise_error ArgumentError, 'invalid minute'
+    end
+  end
+
+  describe '.beginning_of_day' do
+    it 'is 0:00' do
+      expect(described_class.beginning_of_day).to eq described_class.new(0, 0)
+    end
+  end
+
+    describe '.end_of_day' do
+    it 'is 0:00' do
+      expect(described_class.end_of_day).to eq described_class.new(23, 59)
     end
   end
 

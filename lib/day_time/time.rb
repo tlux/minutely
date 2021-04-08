@@ -33,6 +33,22 @@ module DayTime
     end
 
     ##
+    # Returns the begining of day.
+    #
+    # @return [DayTime::Time]
+    def self.beginning_of_day
+      new(0, 0)
+    end
+
+    ##
+    # Returns the end of day.
+    #
+    # @return [DayTime::Time]
+    def self.end_of_day
+      new(23, 59)
+    end
+
+    ##
     # Parses the given input and returns a `DayTime::Time` or `nil`,
     # respectively.
     #
@@ -71,6 +87,10 @@ module DayTime
 
     private_class_method :parse_integer, :parse_string
 
+    ##
+    # Compares the time to another one.
+    #
+    # @return [Integer]
     def <=>(other)
       return nil unless other.is_a?(self.class)
 
@@ -87,10 +107,18 @@ module DayTime
       self.class.new(hour, minute + 1)
     end
 
+    ##
+    # Converts the time to an integer representation of the value.
+    #
+    # @return [Integer]
     def to_i
       padded_hour_min.join.to_i
     end
 
+    ##
+    # Converts the time to an string representation of the value.
+    #
+    # @return [String]
     def to_s
       padded_hour_min.join(':')
     end

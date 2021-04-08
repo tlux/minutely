@@ -12,6 +12,7 @@ module DayTime
   #   @return [DayTime::Time]
   class TimeRange
     include Comparable
+    include Enumerable
     include StringAsJson
 
     attr_reader :from, :to
@@ -24,11 +25,17 @@ module DayTime
     # @param to [DayTime::Time, String, Fixnum]
     #
     # @raise [ArgumentError] when first or second argument evaluates to `nil`.
-    def initialize(from, to)
+    def initialize(from, to, exclude_end: false)
       @from = DayTime::Time.parse(from)
       @to = DayTime::Time.parse(to)
 
       raise ArgumentError, 'invalid time range' if @from.nil? || @to.nil?
+
+      @exclude_end = exclude_end
+    end
+
+    def exclude_end?
+      @exclude_end
     end
 
     class << self
@@ -80,21 +87,73 @@ module DayTime
       end
     end
 
+    ##
+    # Compares the time range to another one.
+    #
+    # @return [Integer]
     def <=>(other)
       return nil unless other.is_a?(self.class)
 
       [from, to] <=> [other.from, other.to]
     end
 
+    ##
+    # Determines whether the specified time is in the range.
+    #
+    # @return [Boolean]
     def include?(time)
       time = DayTime::Time.parse(time)
       from <= time && time <= to
     end
 
-    def to_a
-      [from, to].map(&:to_i)
+    ##
+    # Iterates over all range elements and calls the given block for each
+    # element or returns a lazy enumerator when called without block.
+    #
+    # @yield [time] A block called for every range element.
+    #
+    # @yieldparam time [DayTime::Time] The range element.
+    #
+    # @return [Enumerator, void]
+    def each
+      return to_enum(:each) unless block_given?
+
+      val = from
+
+      loop do
+        yield(val) if !exclude_end? || val != to
+        break if val == to
+
+        val = val.succ
+      end
     end
 
+    ##
+    # Indicates whether the range spans midnight.
+    #
+    # @return [Boolean]
+    def spanning_midnight?
+      from > to
+    end
+
+    ##
+    # Converts the time range into a Range. This does only work when the range
+    # spans midnight due to the way Ranges are based on value comparison.
+    #
+    # @raise [RuntimeError] when the time range spans midnight.
+    # @return [Range]
+    def to_r
+      raise 'Unable to convert ranges spanning midnight' if spanning_midnight?
+
+      return from...to if exclude_end?
+
+      from..to
+    end
+
+    ##
+    # Converts the time range into a string.
+    #
+    # @return [String]
     def to_s
       [from, to].join('-')
     end

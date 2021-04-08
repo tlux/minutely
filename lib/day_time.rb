@@ -10,4 +10,18 @@ module DayTime
   autoload :Time, 'day_time/time'
   autoload :TimeRange, 'day_time/time_range'
   autoload :Utils, 'day_time/utils'
+
+  module_function
+
+  ##
+  # Parses the given input and returns a `DayTime::Time` or `nil`, respectively.
+  #
+  # @param obj [DayTime::Time, #hour, #min, Fixnum, String, nil]
+  #
+  # @return [DayTime::Time, nil]
+  #
+  # @raise [ArgumentError] when the object does not represent a valid time
+  def parse(*args)
+    DayTime::Time.parse(*args)
+  end
 end

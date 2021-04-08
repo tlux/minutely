@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe DayTime::TimeRange do
+  it 'includes Comparable' do
+    expect(described_class).to include Comparable
+  end
+
+  it 'includes Enumerable' do
+    expect(described_class).to include Enumerable
+  end
+
   describe '#initialize' do
     it 'sets #from from first arg' do
       from = DayTime::Time.new(12, 0)
@@ -18,6 +26,18 @@ RSpec.describe DayTime::TimeRange do
       subject = described_class.new(from, to)
 
       expect(subject.to).to be to
+    end
+
+    it 'sets #exclude_end? to false by default' do
+      subject = described_class.new(0, 0)
+
+      expect(subject.exclude_end?).to be false
+    end
+
+    it 'sets #exclude_end? from option' do
+      subject = described_class.new(0, 0, exclude_end: true)
+
+      expect(subject.exclude_end?).to be true
     end
 
     it 'allows setting to arg to 0 am' do
@@ -150,6 +170,124 @@ RSpec.describe DayTime::TimeRange do
         expect { described_class.parse(:unknown) }
           .to raise_error ArgumentError, 'invalid time range'
       end
+    end
+  end
+
+  describe '#to_a' do
+    it 'converts to array' do
+      subject = described_class.new('9:57', '10:03')
+
+      expect(subject.to_a.map(&:to_s)).to eq %w[
+        09:57
+        09:58
+        09:59
+        10:00
+        10:01
+        10:02
+        10:03
+      ]
+    end
+
+    it 'converts to array, excluding end' do
+      subject = described_class.new('9:57', '10:03', exclude_end: true)
+
+      expect(subject.to_a.map(&:to_s)).to eq %w[
+        09:57
+        09:58
+        09:59
+        10:00
+        10:01
+        10:02
+      ]
+    end
+
+    it 'converts single element range to array' do
+      subject = described_class.new('9:57', '9:57')
+
+      expect(subject.to_a.map(&:to_s)).to eq ['09:57']
+    end
+
+    it 'converts single element range with excluded end to empty array' do
+      subject = described_class.new('9:57', '9:57', exclude_end: true)
+
+      expect(subject.to_a).to eq []
+    end
+
+    it 'converts to array, spanning 12 am' do
+      subject = described_class.new('23:57', '0:03')
+
+      expect(subject.to_a.map(&:to_s)).to eq %w[
+        23:57
+        23:58
+        23:59
+        00:00
+        00:01
+        00:02
+        00:03
+      ]
+    end
+
+    it 'converts to array, spanning 12 am, excluding end' do
+      subject = described_class.new('23:57', '0:03', exclude_end: true)
+
+      expect(subject.to_a.map(&:to_s)).to eq %w[
+        23:57
+        23:58
+        23:59
+        00:00
+        00:01
+        00:02
+      ]
+    end
+  end
+
+  describe '#spanning_midnight?' do
+    it 'is true when range is spanning midnight' do
+      [%w[23:57 0:03], %w[23:57 0:00]].each do |(from, to)|
+        subject = described_class.new(from, to)
+
+        expect(subject.spanning_midnight?).to be true
+      end
+    end
+
+    it 'is false when range is not spanning midnight' do
+      [%w[9:57 10:03], %w[0:00 0:03], %w[23:57 23:59]].each do |(from, to)|
+        subject = described_class.new(from, to)
+
+        expect(subject.spanning_midnight?).to be false
+      end
+    end
+  end
+
+  describe '#to_r' do
+    it 'converts to range' do
+      subject = described_class.new('9:57', '10:03')
+
+      expect(subject.to_r).to eq(subject.from..subject.to)
+    end
+
+    it 'converts to range, excluding end' do
+      subject = described_class.new('9:57', '10:03', exclude_end: true)
+
+      expect(subject.to_r).to eq(subject.from...subject.to)
+    end
+
+    it 'raises when range is #spanning_midnight?' do
+      subject = described_class.new('23:57', '0:03')
+
+      expect { subject.to_r }.to raise_error(
+        RuntimeError,
+        'Unable to convert ranges spanning midnight'
+      )
+    end
+
+    it 'raises when range is excluding end and #spanning_midnight?' do
+      subject = described_class.new('23:57', '0:03', exclude_end: true)
+
+      expect { subject.to_r }.to raise_error(
+        RuntimeError,
+        'Unable to convert ranges spanning midnight'
+      )
     end
   end
 
