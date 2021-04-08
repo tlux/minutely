@@ -46,7 +46,7 @@ RSpec.describe DayTime::Time do
     end
   end
 
-    describe '.end_of_day' do
+  describe '.end_of_day' do
     it 'is 0:00' do
       expect(described_class.end_of_day).to eq described_class.new(23, 59)
     end
