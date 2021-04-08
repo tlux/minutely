@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    day_time (1.0.1)
+    day_time (2.0.0)
 
 GEM
   remote: http://gems.dev.i22.de/
