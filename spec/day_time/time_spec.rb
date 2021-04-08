@@ -207,8 +207,12 @@ RSpec.describe DayTime::Time do
   describe '#as_json' do
     subject { described_class.new(14, 32) }
 
-    it 'returns result of #to_s' do
+    it 'returns result of #to_s with no argument' do
       expect(subject.as_json).to eq subject.to_s
+    end
+
+    it 'returns result of #to_s with 1 argument' do
+      expect(subject.as_json({})).to eq subject.to_s
     end
   end
 end

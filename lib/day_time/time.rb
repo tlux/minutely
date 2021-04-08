@@ -11,6 +11,7 @@ module DayTime
   #   @return [Fixnum]
   class Time
     include Comparable
+    include StringAsJson
 
     attr_reader :hour, :minute
     alias min minute
@@ -93,8 +94,6 @@ module DayTime
     def to_s
       padded_hour_min.join(':')
     end
-
-    alias as_json to_s
 
     private
 

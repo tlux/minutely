@@ -12,6 +12,7 @@ module DayTime
   #   @return [DayTime::Time]
   class TimeRange
     include Comparable
+    include StringAsJson
 
     attr_reader :from, :to
 
@@ -97,7 +98,5 @@ module DayTime
     def to_s
       [from, to].join('-')
     end
-
-    alias as_json to_s
   end
 end
