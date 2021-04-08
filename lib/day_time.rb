@@ -24,4 +24,20 @@ module DayTime
   def parse(*args)
     DayTime::Time.parse(*args)
   end
+
+  ##
+  # Parses the given input and returns a `DayTime::TimeRange` or `nil`,
+  # respectively.
+  #
+  # @param obj [DayTime::TimeRange, Array, Hash, String, nil]
+  #
+  # @return [DayTime::TimeRange, nil]
+  #
+  # @raise [ArgumentError] when the object does not represent a valid time range
+  #
+  # @raise [KeyError] when the given Hash does not contain the required keys
+  #   (`:from` and `:to`)
+  def parse_range(*args)
+    DayTime::TimeRange.parse(*args)
+  end
 end
