@@ -309,6 +309,38 @@ RSpec.describe DayTime::TimeRange do
     end
   end
 
+  describe '#<=>' do
+    subject { described_class.new('9:00', '10:00') }
+
+    it 'is nil when other object is no time range' do
+      expect(subject <=> :other).to be nil
+    end
+
+    it 'is nil when other time range does #exclude_end?' do
+      other = described_class.new('9:00', '10:00', exclude_end: true)
+
+      expect(subject <=> other).to be nil
+    end
+
+    it 'is 0 when equal' do
+      other = described_class.new('9:00', '10:00')
+
+      expect(subject <=> other).to eq 0
+    end
+
+    it 'is 1 when time range is less than other' do
+      other = described_class.new('8:30', '9:30')
+
+      expect(subject <=> other).to eq 1
+    end
+
+    it 'is -1 when time range is less than other' do
+      other = described_class.new('10:30', '11:30')
+
+      expect(subject <=> other).to eq(-1)
+    end
+  end
+
   describe '#include?' do
     subject { described_class.new('9:00', '16:45') }
 
@@ -322,6 +354,12 @@ RSpec.describe DayTime::TimeRange do
       expect(subject.include?('0:00')).to be false
       expect(subject.include?('8:59')).to be false
       expect(subject.include?('16:46')).to be false
+    end
+
+    it 'is false when time range expected to include #to when #exclude_end?' do
+      subject = described_class.new('9:00', '16:45', exclude_end: true)
+
+      expect(subject.include?('16:45')).to be false
     end
 
     it 'raises when argument invalid' do

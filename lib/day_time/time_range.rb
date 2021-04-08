@@ -93,6 +93,7 @@ module DayTime
     # @return [Integer]
     def <=>(other)
       return nil unless other.is_a?(self.class)
+      return nil if exclude_end? != other.exclude_end?
 
       [from, to] <=> [other.from, other.to]
     end
@@ -103,7 +104,8 @@ module DayTime
     # @return [Boolean]
     def include?(time)
       time = DayTime::Time.parse(time)
-      from <= time && time <= to
+      end_predicate = exclude_end? ? time < to : time <= to
+      from <= time && end_predicate
     end
 
     ##
