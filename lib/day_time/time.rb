@@ -25,10 +25,10 @@ module DayTime
     #
     # @raise [ArgumentError] when arguments are not within the specified ranges
     def initialize(hour, minute)
-      raise ArgumentError, 'invalid hour' unless (0..23).include?(hour)
+      raise ArgumentError, 'invalid hour' unless (0..24).include?(hour)
       raise ArgumentError, 'invalid minute' unless (0..59).include?(minute)
 
-      @hour = hour
+      @hour = hour == 24 ? 0 : hour
       @minute = minute
     end
 

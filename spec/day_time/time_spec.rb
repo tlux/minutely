@@ -19,13 +19,20 @@ RSpec.describe DayTime::Time do
       expect(subject.minute).to eq 32
     end
 
+    it 'sets #hour to 0 when first arg is 24' do
+      subject = described_class.new(24, 12)
+
+      expect(subject.hour).to eq 0
+      expect(subject.minute).to eq 12
+    end
+
     it 'raises ArgumentError when hour negative' do
       expect { described_class.new(-1, 32) }
         .to raise_error ArgumentError, 'invalid hour'
     end
 
-    it 'raises ArgumentError when hour greater than 23' do
-      expect { described_class.new(24, 32) }
+    it 'raises ArgumentError when hour greater than 24' do
+      expect { described_class.new(25, 32) }
         .to raise_error ArgumentError, 'invalid hour'
     end
 
@@ -111,7 +118,7 @@ RSpec.describe DayTime::Time do
       end
 
       it 'raises on init error' do
-        expect { described_class.parse('24:02') }
+        expect { described_class.parse('25:02') }
           .to raise_error ArgumentError, 'invalid hour'
 
         expect { described_class.parse('00:61') }
@@ -127,7 +134,7 @@ RSpec.describe DayTime::Time do
       end
 
       it 'raises on init error' do
-        expect { described_class.parse(2402) }
+        expect { described_class.parse(2502) }
           .to raise_error ArgumentError, 'invalid hour'
 
         expect { described_class.parse(61) }
