@@ -58,7 +58,7 @@ module Minutely
     # @raise [KeyError] when the given Hash does not contain the required keys
     # (`:from` and `:to`)
     def self.parse(value)
-      TimeRange::Parser.new(value).parse
+      TimeRange::Parser.parse(value)
     end
 
     ##

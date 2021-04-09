@@ -19,7 +19,7 @@ module Minutely
       private
 
       def parse_array(items)
-        if items.length != 2 || items.any? { |item| Utils.blank?(item) }
+        if items.length != 2 || include_empty_item?(items)
           raise ArgumentError, 'invalid time range'
         end
 
@@ -37,6 +37,12 @@ module Minutely
 
         items = value.split('-').map(&:strip)
         parse_array(items)
+      end
+
+      def include_empty_item?(items)
+        items.any? do |item|
+          item.nil? || (item.respond_to?(:empty?) && item.empty?)
+        end
       end
     end
   end

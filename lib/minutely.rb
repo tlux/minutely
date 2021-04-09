@@ -10,7 +10,6 @@ module Minutely
   autoload :StringAsJson, 'minutely/string_as_json'
   autoload :Time, 'minutely/time'
   autoload :TimeRange, 'minutely/time_range'
-  autoload :Utils, 'minutely/utils'
 
   module_function
 

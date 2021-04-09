@@ -60,7 +60,7 @@ module Minutely
     #
     # @raise [ArgumentError] when the object does not represent a valid time
     def self.parse(value)
-      Time::Parser.new(value).parse
+      Time::Parser.parse(value)
     end
 
     ##

@@ -6,11 +6,11 @@ module Minutely
     # A parser that tries to convert the input value to `Minutely::Time`.
     class Parser < Minutely::Parser
       def parse
-        return nil if Utils.blank?(value)
         return value if value.is_a?(Time)
         return Time.new(value.hour, value.min) if like_time?
 
         case value
+        when nil then nil
         when Integer then parse_integer
         when String then parse_string
         else raise ArgumentError, 'invalid time'
@@ -30,6 +30,8 @@ module Minutely
       end
 
       def parse_string
+        return nil if value.empty?
+
         matches = value.match(/\A(?<hour>\d{1,2}):(?<minute>\d{2})\z/)
         raise ArgumentError, 'invalid time string' unless matches
 

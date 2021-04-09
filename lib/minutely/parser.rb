@@ -26,15 +26,5 @@ module Minutely
     def self.parse(value)
       new(value).parse
     end
-
-    ##
-    # Parse the value.
-    #
-    # @param value [Object]
-    # @return [Object]
-    # @raise [ArgumentError]
-    def parse
-      raise NotImplementedError
-    end
   end
 end
