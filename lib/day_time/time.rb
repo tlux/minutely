@@ -112,7 +112,7 @@ module DayTime
     #
     # @return [Integer]
     def to_i
-      padded_hour_min.join.to_i
+      100 * hour + minute
     end
 
     ##
@@ -120,13 +120,7 @@ module DayTime
     #
     # @return [String]
     def to_s
-      padded_hour_min.join(':')
-    end
-
-    private
-
-    def padded_hour_min
-      [hour, minute].map { |v| v.to_s.rjust(2, '0') }
+      [hour, minute].map { |v| v.to_s.rjust(2, '0') }.join(':')
     end
   end
 end
