@@ -7,6 +7,7 @@ Gem::Specification.new do |spec|
   spec.version = Minutely::VERSION
   spec.authors = ['Tobias Casper']
   spec.email = ['tobias.casper@gmail.com']
+  spec.licenses = ['MIT']
 
   spec.summary = 'Classes for representing the time of a day by using only hours and minutes'
   spec.homepage = 'https://github.com/tlux/minutely'
