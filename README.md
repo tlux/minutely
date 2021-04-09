@@ -1,19 +1,10 @@
 # Minutely
 
-Classes for representing the time of a day by using only hours and minutes. This
-is particularly useful when implementing business logic that has to deal with
-opening times.
+Classes for representing the time of a day by using only hours and minutes.
 
 ## Installation
 
-Please ensure to use the i22 Gem server in your local project. Add the following
-line to the top of your Gemfile.
-
-```ruby
-source 'http://gems.dev.i22.de/'
-```
-
-After that, add this line to your Gemfile:
+Add this line to your Gemfile:
 
 ```ruby
 gem 'minutely'
@@ -29,7 +20,7 @@ bundle install
 
 ### Time
 
-Create a new day time:
+Create a new time:
 
 ```ruby
 time1 = Minutely::Time.new(21, 42)
@@ -39,7 +30,7 @@ time2 = Minutely::Time.new(9, 3)
 time2.to_s # => "09:03"
 ```
 
-Parse day time using `DateTime`, `Time`, `String` or `Integer`:
+Parse time using `DateTime`, `Time`, `String` or `Integer`:
 
 ```ruby
 Minutely::Time.parse(DateTime.now)
@@ -83,8 +74,8 @@ Native Range support:
 
 ### Time Range
 
-A special type of day time range, that also allows defining ranges spanning over
-12 am (0:00).
+A special type of time range, that also allows defining ranges spanning over 12
+am (0:00).
 
 Create a new time range:
 
@@ -133,31 +124,7 @@ Minutely::TimeRange.new('23:57', '0:03').to_a.map(&:to_s)
 
 Note this is only possible with ranges not spanning midnight.
 
-## Development
-
-After checking out the repo, run `bundle install` to install dependencies. Run
-`bundle exec rspec` to run the tests. Linting an formatting are supported using
-`bundle exec rubocop`. You can also run `bin/console` for an interactive prompt
-that will allow you to experiment.
-
-To publish the Gem:
-
-1. Update the version in `lib/minutely/version.rb`
-
-2. Create and push a tag representing the new Gem version:
-
-   ```sh
-   git tag v1.2.3
-   git push --tag
-   ```
-
-3. Run the publish script to build the Gem and push it to the server:
-
-   ```sh
-   ./bin/publish
-   ```
-
 ## Contributing
 
-Bug reports and pull requests are welcome on the [internal i22
-GitLab](https://gitlab.i22.de/pakete/ruby/minutely).
+Bug reports and pull requests are welcome on [GitHub
+Issues](https://github.com/tlux/minutely/issues)
