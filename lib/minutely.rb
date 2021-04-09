@@ -15,7 +15,8 @@ module Minutely
   module_function
 
   ##
-  # Parses the given input and returns a `Minutely::Time` or `nil`, respectively.
+  # Parses the given input and returns a `Minutely::Time` or `nil`,
+  # respectively.
   #
   # @param obj [Minutely::Time, #hour, #min, Integer, String, nil]
   #

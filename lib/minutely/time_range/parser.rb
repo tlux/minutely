@@ -1,13 +1,17 @@
+# frozen_string_literal: true
+
 module Minutely
   class TimeRange
+    ##
+    # A parser that tries to convert the input value to `Minutely::TimeRange`.
     class Parser < Minutely::Parser
       def parse
         case value
         when nil then nil
-        when TimeRange then value
         when Array then parse_array(value)
         when Hash then parse_hash
         when String then parse_string
+        when TimeRange then value
         else raise ArgumentError, 'invalid time range'
         end
       end

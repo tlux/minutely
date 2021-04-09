@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 module Minutely
   class Time
+    ##
+    # A parser that tries to convert the input value to `Minutely::Time`.
     class Parser < Minutely::Parser
       def parse
         return nil if Utils.blank?(value)
         return value if value.is_a?(Time)
-
-        if value.respond_to?(:hour) && value.respond_to?(:min)
-          return Time.new(value.hour, value.min)
-        end
+        return Time.new(value.hour, value.min) if like_time?
 
         case value
         when Integer then parse_integer
@@ -17,6 +18,10 @@ module Minutely
       end
 
       private
+
+      def like_time?
+        value.respond_to?(:hour) && value.respond_to?(:min)
+      end
 
       def parse_integer
         hour = value / 100
