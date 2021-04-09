@@ -60,9 +60,12 @@ RSpec.describe Minutely::TimeRange do
 
     context 'Minutely::TimeRange' do
       it 'returns same instance' do
-        time = described_class.new(14, 32)
+        range = described_class.new(
+          Minutely::Time.new(14, 32),
+          Minutely::Time.new(15, 59)
+        )
 
-        expect(described_class.parse(time)).to be time
+        expect(described_class.parse(range)).to be range
       end
     end
 
@@ -121,6 +124,38 @@ RSpec.describe Minutely::TimeRange do
       it 'raises when :to invalid' do
         expect { described_class.parse(from: '1:23', to: 'invalid') }
           .to raise_error ArgumentError, 'invalid time string'
+      end
+    end
+
+    context 'Range' do
+      it 'returns Minutely::TimeRange' do
+        from = Minutely::Time.new(14, 32)
+        to = Minutely::Time.new(15, 59)
+        subject = described_class.parse(from..to)
+
+        expect(subject.from).to eq from
+        expect(subject.to).to eq to
+        expect(subject.exclude_end?).to be false
+      end
+
+      it 'returns Minutely::TimeRange, excluding end' do
+        from = Minutely::Time.new(14, 32)
+        to = Minutely::Time.new(15, 59)
+        subject = described_class.parse(from...to)
+
+        expect(subject.from).to eq from
+        expect(subject.to).to eq to
+        expect(subject.exclude_end?).to be true
+      end
+
+      it 'raises when range has bad string type' do
+        expect { described_class.parse('a'..'z') }
+          .to raise_error ArgumentError, 'invalid time string'
+      end
+
+      it 'raises when range has bad integer type' do
+        expect { described_class.parse(9999..10000) }
+          .to raise_error ArgumentError, 'invalid hour'
       end
     end
 
