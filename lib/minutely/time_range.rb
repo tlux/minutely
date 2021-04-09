@@ -11,6 +11,8 @@ module Minutely
   # @!attribute [r] to
   #   @return [Minutely::Time]
   class TimeRange
+    autoload :Parser, 'minutely/time_range/parser'
+
     include Comparable
     include Enumerable
     include StringAsJson
@@ -42,53 +44,21 @@ module Minutely
       @exclude_end
     end
 
-    class << self
-      ##
-      # Parses the given input and returns a `Minutely::TimeRange` or `nil`,
-      # respectively.
-      #
-      # @param obj [Minutely::TimeRange, Array, Hash, String, nil]
-      #
-      # @return [Minutely::TimeRange, nil]
-      #
-      # @raise [ArgumentError] when the object does not represent a valid time
-      #   range
-      #
-      # @raise [KeyError] when the given Hash does not contain the required keys
-      # (`:from` and `:to`)
-      def parse(obj)
-        case obj
-        when nil then nil
-        when self then obj
-        when Array then parse_array(obj)
-        when Hash then parse_hash(obj)
-        when String then parse_string(obj)
-        else raise ArgumentError, 'invalid time range'
-        end
-      end
-
-      private
-
-      def parse_array(items)
-        if items.length != 2 || items.any? { |item| Utils.blank?(item) }
-          raise ArgumentError, 'invalid time range'
-        end
-
-        new(*items)
-      end
-
-      def parse_hash(hash)
-        return nil if hash.empty?
-
-        parse_array(hash.fetch_values(:from, :to))
-      end
-
-      def parse_string(str)
-        return nil if str.empty?
-
-        items = str.split('-').map(&:strip)
-        parse_array(items)
-      end
+    ##
+    # Parses the given input and returns a `Minutely::TimeRange` or `nil`,
+    # respectively.
+    #
+    # @param value [Minutely::TimeRange, Array, Hash, String, nil]
+    #
+    # @return [Minutely::TimeRange, nil]
+    #
+    # @raise [ArgumentError] when the object does not represent a valid time
+    #   range
+    #
+    # @raise [KeyError] when the given Hash does not contain the required keys
+    # (`:from` and `:to`)
+    def self.parse(value)
+      TimeRange::Parser.new(value).parse
     end
 
     ##

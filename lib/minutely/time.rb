@@ -10,6 +10,8 @@ module Minutely
   # @!attribute [r] minute
   #   @return [Integer]
   class Time
+    autoload :Parser, 'minutely/time/parser'
+
     include Comparable
     include StringAsJson
 
@@ -52,40 +54,14 @@ module Minutely
     # Parses the given input and returns a `Minutely::Time` or `nil`,
     # respectively.
     #
-    # @param obj [Minutely::Time, #hour, #min, Integer, String, nil]
+    # @param value [Minutely::Time, #hour, #min, Integer, String, nil]
     #
     # @return [Minutely::Time, nil]
     #
     # @raise [ArgumentError] when the object does not represent a valid time
-    def self.parse(obj)
-      return nil if Utils.blank?(obj)
-      return obj if obj.is_a?(self)
-
-      if obj.respond_to?(:hour) && obj.respond_to?(:min)
-        return new(obj.hour, obj.min)
-      end
-
-      case obj
-      when Integer then parse_integer(obj)
-      when String then parse_string(obj)
-      else raise ArgumentError, 'invalid time'
-      end
+    def self.parse(value)
+      Time::Parser.new(value).parse
     end
-
-    def self.parse_integer(value)
-      hour = value / 100
-      minute = value % 100
-      new(hour, minute)
-    end
-
-    def self.parse_string(str)
-      matches = str.match(/\A(?<hour>\d{1,2}):(?<minute>\d{2})\z/)
-      raise ArgumentError, 'invalid time string' unless matches
-
-      new(matches[:hour].to_i, matches[:minute].to_i)
-    end
-
-    private_class_method :parse_integer, :parse_string
 
     ##
     # Compares the time to another one.
