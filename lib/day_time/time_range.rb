@@ -34,6 +34,10 @@ module DayTime
       @exclude_end = exclude_end
     end
 
+    ##
+    # Indicates whether the range excludes the last item.
+    #
+    # @return [Boolean]
     def exclude_end?
       @exclude_end
     end
