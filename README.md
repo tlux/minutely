@@ -1,5 +1,9 @@
 # Minutely
 
+[![Build Status](https://travis-ci.org/tlux/minutely.svg?branch=master)](https://travis-ci.org/tlux/minutely)
+[![Coverage Status](https://coveralls.io/repos/github/tlux/minutely/badge.svg?branch=master)](https://coveralls.io/github/tlux/minutely?branch=master)
+[![Gem Version](https://badge.fury.io/rb/minutely.svg)](https://badge.fury.io/rb/minutely)
+
 Classes for representing the time of a day by using only hours and minutes.
 
 ## Installation
