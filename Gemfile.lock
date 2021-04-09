@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    day_time (2.0.1)
+    minutely (3.0.0)
 
 GEM
   remote: http://gems.dev.i22.de/
@@ -56,7 +56,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  day_time!
+  minutely!
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop

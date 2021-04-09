@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module DayTime
+module Minutely
   ##
-  # Provides utility functions to be internally used by the DayTime library.
+  # Provides utility functions to be internally used by the Minutely library.
   module Utils
     module_function
 

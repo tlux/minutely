@@ -4,7 +4,7 @@ set -e
 
 ROOT=$(cd $(dirname $0)/..; pwd)
 
-GEMPACKAGE="$ROOT/pkg/day_time.gem"
+GEMPACKAGE="$ROOT/pkg/minutely.gem"
 
-gem build "$ROOT/day_time.gemspec" -o $GEMPACKAGE
+gem build "$ROOT/minutely.gemspec" -o $GEMPACKAGE
 gem inabox $GEMPACKAGE

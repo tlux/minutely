@@ -1,4 +1,4 @@
-# DayTime
+# Minutely
 
 Classes for representing the time of a day by using only hours and minutes. This
 is particularly useful when implementing business logic that has to deal with
@@ -16,7 +16,7 @@ source 'http://gems.dev.i22.de/'
 After that, add this line to your Gemfile:
 
 ```ruby
-gem 'day_time'
+gem 'minutely'
 ```
 
 Then execute:
@@ -32,34 +32,34 @@ bundle install
 Create a new day time:
 
 ```ruby
-time1 = DayTime::Time.new(21, 42)
+time1 = Minutely::Time.new(21, 42)
 time1.to_s # => "21:42"
 
-time2 = DayTime::Time.new(9, 3)
+time2 = Minutely::Time.new(9, 3)
 time2.to_s # => "09:03"
 ```
 
 Parse day time using `DateTime`, `Time`, `String` or `Integer`:
 
 ```ruby
-DayTime::Time.parse(DateTime.now)
-DayTime::Time.parse(Time.now)
-DayTime::Time.parse('9:03').to_s # => "09:03"
-DayTime::Time.parse(903).to_s # => "09:03"
+Minutely::Time.parse(DateTime.now)
+Minutely::Time.parse(Time.now)
+Minutely::Time.parse('9:03').to_s # => "09:03"
+Minutely::Time.parse(903).to_s # => "09:03"
 ```
 
 Get the next minute:
 
 ```ruby
-time = DayTime::Time.parse('9:03')
+time = Minutely::Time.parse('9:03')
 time.succ.to_s # => "9:04"
 ```
 
 Compare and sort by times:
 
 ```ruby
-time1 = DayTime::Time.parse('9:03')
-time2 = DayTime::Time.parse('21:42')
+time1 = Minutely::Time.parse('9:03')
+time2 = Minutely::Time.parse('21:42')
 
 time1 == time2 # => false
 time1 < time2 # => true
@@ -68,16 +68,16 @@ time1 >= time2 # => false
 time1 > time2 # => false
 
 [
-  DayTime::Time.parse('21:42'),
-  DayTime::Time.parse('9:03'),
-  DayTime::Time.parse('15:00')
+  Minutely::Time.parse('21:42'),
+  Minutely::Time.parse('9:03'),
+  Minutely::Time.parse('15:00')
 ].sort.map(&:to_s) # => ["09:03", "15:00", "21:42"]
 ```
 
 Native Range support:
 
 ```ruby
-(DayTime::Time.parse('9:57')..DayTime::Time.parse('10:10'))
+(Minutely::Time.parse('9:57')..Minutely::Time.parse('10:10'))
 
 ```
 
@@ -88,30 +88,30 @@ A special type of day time range, that also allows defining ranges spanning over
 
 Create a new time range:
 
-time1 = DayTime::Time.new(9, 3)
+time1 = Minutely::Time.new(9, 3)
 ```ruby
-time2 = DayTime::Time.new(21, 42)
+time2 = Minutely::Time.new(21, 42)
 
-DayTime::TimeRange.new(time1, time2).to_s # => "09:03-21:42"
-DayTime::TimeRange.new(time2, time1).to_s # => "21:42-09:03"
+Minutely::TimeRange.new(time1, time2).to_s # => "09:03-21:42"
+Minutely::TimeRange.new(time2, time1).to_s # => "21:42-09:03"
 ```
 
 Parse time range using `String`:
 
 ```ruby
-DayTime::TimeRange.parse('9:03-21:42')
+Minutely::TimeRange.parse('9:03-21:42')
 ```
 
 Parse time range using `Hash`:
 
 ```ruby
-DayTime::TimeRange.parse(from: '9:03', to: '21:42')
+Minutely::TimeRange.parse(from: '9:03', to: '21:42')
 ```
 
 Check whether time range includes time:
 
 ```ruby
-range = DayTime::TimeRange.new('9:03', '21:42')
+range = Minutely::TimeRange.new('9:03', '21:42')
 
 range.include?('10:00') # => true
 range.include?('22:00') # => false
@@ -120,14 +120,14 @@ range.include?('22:00') # => false
 Convert to Ruby `Range`:
 
 ```ruby
-DayTime::TimeRange.new('9:03', '21:42').to_r
-# => #<DayTime::Time @hour=9, @minute=3>..#<DayTime::Time @hour=21, @minute=42>
+Minutely::TimeRange.new('9:03', '21:42').to_r
+# => #<Minutely::Time @hour=9, @minute=3>..#<Minutely::Time @hour=21, @minute=42>
 ```
 
-Convert to Array of `DayTime::Time`s:
+Convert to Array of `Minutely::Time`s:
 
 ```ruby
-DayTime::TimeRange.new('23:57', '0:03').to_a.map(&:to_s)
+Minutely::TimeRange.new('23:57', '0:03').to_a.map(&:to_s)
 # => ["23:57", "23:58", "23:59", "00:00", "00:01", "00:02", "00:03"]
 ```
 
@@ -142,7 +142,7 @@ that will allow you to experiment.
 
 To publish the Gem:
 
-1. Update the version in `lib/day_time/version.rb`
+1. Update the version in `lib/minutely/version.rb`
 
 2. Create and push a tag representing the new Gem version:
 
@@ -160,4 +160,4 @@ To publish the Gem:
 ## Contributing
 
 Bug reports and pull requests are welcome on the [internal i22
-GitLab](https://gitlab.i22.de/pakete/ruby/day_time).
+GitLab](https://gitlab.i22.de/pakete/ruby/minutely).

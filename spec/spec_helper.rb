@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'day_time'
+require 'minutely'
 require 'simplecov-cobertura'
 
 LIB_DIR = File.expand_path('../lib', __dir__)

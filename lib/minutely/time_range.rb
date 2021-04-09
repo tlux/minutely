@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-module DayTime
+module Minutely
   ##
   # A class that represents a range of day times that is only using hours
   # and minutes.
   #
   # @!attribute [r] from
-  #   @return [DayTime::Time]
+  #   @return [Minutely::Time]
   #
   # @!attribute [r] to
-  #   @return [DayTime::Time]
+  #   @return [Minutely::Time]
   class TimeRange
     include Comparable
     include Enumerable
@@ -18,16 +18,16 @@ module DayTime
     attr_reader :from, :to
 
     ##
-    # Builds a new `DayTime::TimeRange`.
+    # Builds a new `Minutely::TimeRange`.
     #
-    # @param from [DayTime::Time, String, Integer]
+    # @param from [Minutely::Time, String, Integer]
     #
-    # @param to [DayTime::Time, String, Integer]
+    # @param to [Minutely::Time, String, Integer]
     #
     # @raise [ArgumentError] when first or second argument evaluates to `nil`.
     def initialize(from, to, exclude_end: false)
-      @from = DayTime::Time.parse(from)
-      @to = DayTime::Time.parse(to)
+      @from = Minutely::Time.parse(from)
+      @to = Minutely::Time.parse(to)
 
       raise ArgumentError, 'invalid time range' if @from.nil? || @to.nil?
 
@@ -44,12 +44,12 @@ module DayTime
 
     class << self
       ##
-      # Parses the given input and returns a `DayTime::TimeRange` or `nil`,
+      # Parses the given input and returns a `Minutely::TimeRange` or `nil`,
       # respectively.
       #
-      # @param obj [DayTime::TimeRange, Array, Hash, String, nil]
+      # @param obj [Minutely::TimeRange, Array, Hash, String, nil]
       #
-      # @return [DayTime::TimeRange, nil]
+      # @return [Minutely::TimeRange, nil]
       #
       # @raise [ArgumentError] when the object does not represent a valid time
       #   range
@@ -107,7 +107,7 @@ module DayTime
     #
     # @return [Boolean]
     def include?(time)
-      time = DayTime::Time.parse(time)
+      time = Minutely::Time.parse(time)
       end_predicate = exclude_end? ? time < to : time <= to
       from <= time && end_predicate
     end
@@ -118,7 +118,7 @@ module DayTime
     #
     # @yield [time] A block called for every range element.
     #
-    # @yieldparam time [DayTime::Time] The range element.
+    # @yieldparam time [Minutely::Time] The range element.
     #
     # @return [Enumerator, void]
     def each

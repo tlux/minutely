@@ -2,7 +2,7 @@
 
 source 'http://gems.dev.i22.de/'
 
-# Specify your gem's dependencies in day_time.gemspec
+# Specify your gem's dependencies in minutely.gemspec
 gemspec
 
 gem 'rake', '~> 13.0'

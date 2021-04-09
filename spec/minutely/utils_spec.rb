@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DayTime::Utils do
+RSpec.describe Minutely::Utils do
   describe '.blank?' do
     it 'is true when arg is nil' do
       expect(described_class.blank?(nil)).to be true
