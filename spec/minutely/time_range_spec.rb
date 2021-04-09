@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DayTime::TimeRange do
+RSpec.describe Minutely::TimeRange do
   it 'includes Comparable' do
     expect(described_class).to include Comparable
   end
@@ -11,8 +11,8 @@ RSpec.describe DayTime::TimeRange do
 
   describe '#initialize' do
     it 'sets #from from first arg' do
-      from = DayTime::Time.new(12, 0)
-      to = DayTime::Time.new(17, 45)
+      from = Minutely::Time.new(12, 0)
+      to = Minutely::Time.new(17, 45)
 
       subject = described_class.new(from, to)
 
@@ -20,8 +20,8 @@ RSpec.describe DayTime::TimeRange do
     end
 
     it 'sets #to from second arg' do
-      from = DayTime::Time.new(12, 0)
-      to = DayTime::Time.new(17, 45)
+      from = Minutely::Time.new(12, 0)
+      to = Minutely::Time.new(17, 45)
 
       subject = described_class.new(from, to)
 
@@ -41,8 +41,8 @@ RSpec.describe DayTime::TimeRange do
     end
 
     it 'allows setting to arg to 0 am' do
-      from = DayTime::Time.new(12, 0)
-      to = DayTime::Time.new(0, 0)
+      from = Minutely::Time.new(12, 0)
+      to = Minutely::Time.new(0, 0)
 
       subject = described_class.new(from, to)
 
@@ -58,7 +58,7 @@ RSpec.describe DayTime::TimeRange do
       end
     end
 
-    context 'DayTime::TimeRange' do
+    context 'Minutely::TimeRange' do
       it 'returns same instance' do
         time = described_class.new(14, 32)
 
@@ -80,14 +80,14 @@ RSpec.describe DayTime::TimeRange do
           .to raise_error ArgumentError, 'invalid time range'
       end
 
-      it 'returns DayTime::TimeRange when start and end are integers' do
+      it 'returns Minutely::TimeRange when start and end are integers' do
         expect(described_class.parse([123, 234]))
-          .to eq DayTime::TimeRange.new('1:23', '2:34')
+          .to eq Minutely::TimeRange.new('1:23', '2:34')
       end
 
-      it 'returns DayTime::TimeRange when start and end are strings' do
+      it 'returns Minutely::TimeRange when start and end are strings' do
         expect(described_class.parse(['1:23', '2:34']))
-          .to eq DayTime::TimeRange.new('1:23', '2:34')
+          .to eq Minutely::TimeRange.new('1:23', '2:34')
       end
     end
 
@@ -96,9 +96,9 @@ RSpec.describe DayTime::TimeRange do
         expect(described_class.parse({})).to be nil
       end
 
-      it 'returns DayTime::TimeRange for valid start and end' do
+      it 'returns Minutely::TimeRange for valid start and end' do
         expect(described_class.parse(from: '1:23', to: '2:34'))
-          .to eq DayTime::TimeRange.new('1:23', '2:34')
+          .to eq Minutely::TimeRange.new('1:23', '2:34')
       end
 
       it 'raises when Hash does not include both :from and :to keys' do
@@ -129,7 +129,7 @@ RSpec.describe DayTime::TimeRange do
         expect(described_class.parse('')).to be nil
       end
 
-      it 'returns DayTime::TimeRange for valid start and end' do
+      it 'returns Minutely::TimeRange for valid start and end' do
         subject = described_class.parse('14:00-17:45')
 
         expect(subject.from.hour).to eq 14
@@ -138,7 +138,7 @@ RSpec.describe DayTime::TimeRange do
         expect(subject.to.minute).to eq 45
       end
 
-      it 'returns DayTime::TimeRange for valid start and 0:00 end' do
+      it 'returns Minutely::TimeRange for valid start and 0:00 end' do
         subject = described_class.parse('14:00-00:00')
 
         expect(subject.from.hour).to eq 14

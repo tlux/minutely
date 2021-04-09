@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe DayTime do
+RSpec.describe Minutely do
   describe '.parse' do
-    it 'is delegated to DayTime::Time.parse' do
+    it 'is delegated to Minutely::Time.parse' do
       arg = double('arg')
       result = double('day time')
 
@@ -14,7 +14,7 @@ RSpec.describe DayTime do
   end
 
   describe '.parse_range' do
-    it 'is delegated to DayTime::TimeRange.parse' do
+    it 'is delegated to Minutely::TimeRange.parse' do
       arg = double('arg')
       result = double('day time range')
 

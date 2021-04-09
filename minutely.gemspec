@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require_relative 'lib/day_time/version'
+require_relative 'lib/minutely/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'day_time'
-  spec.version = DayTime::VERSION
+  spec.name = 'minutely'
+  spec.version = Minutely::VERSION
   spec.authors = ['Tobias Casper']
   spec.email = ['tobias.casper@gmail.com']
+  spec.licenses = ['MIT']
 
   spec.summary = 'Classes for representing the time of a day by using only hours and minutes'
-  spec.homepage = 'https://gitlab.i22.de/pakete/ruby/day_time'
+  spec.homepage = 'https://github.com/tlux/minutely'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0')
 
-  spec.metadata['allowed_push_host'] = 'http://gems.dev.i22.de'
   spec.metadata['homepage_uri'] = spec.homepage
 
   # Specify which files should be added to the gem when it is released.

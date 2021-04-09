@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DayTime
+module Minutely
   ##
   # A class that represents a day time by using only hours and minutes.
   #
@@ -10,6 +10,8 @@ module DayTime
   # @!attribute [r] minute
   #   @return [Integer]
   class Time
+    autoload :Parser, 'minutely/time/parser'
+
     include Comparable
     include StringAsJson
 
@@ -17,7 +19,7 @@ module DayTime
     alias min minute
 
     ##
-    # Builds a new `DayTime::Time`.
+    # Builds a new `Minutely::Time`.
     #
     # @param hour [Integer] a number between 0 and 23
     #
@@ -35,7 +37,7 @@ module DayTime
     ##
     # Returns the begining of day.
     #
-    # @return [DayTime::Time]
+    # @return [Minutely::Time]
     def self.beginning_of_day
       new(0, 0)
     end
@@ -43,49 +45,23 @@ module DayTime
     ##
     # Returns the end of day.
     #
-    # @return [DayTime::Time]
+    # @return [Minutely::Time]
     def self.end_of_day
       new(23, 59)
     end
 
     ##
-    # Parses the given input and returns a `DayTime::Time` or `nil`,
+    # Parses the given input and returns a `Minutely::Time` or `nil`,
     # respectively.
     #
-    # @param obj [DayTime::Time, #hour, #min, Integer, String, nil]
+    # @param value [Minutely::Time, #hour, #min, Integer, String, nil]
     #
-    # @return [DayTime::Time, nil]
+    # @return [Minutely::Time, nil]
     #
     # @raise [ArgumentError] when the object does not represent a valid time
-    def self.parse(obj)
-      return nil if Utils.blank?(obj)
-      return obj if obj.is_a?(self)
-
-      if obj.respond_to?(:hour) && obj.respond_to?(:min)
-        return new(obj.hour, obj.min)
-      end
-
-      case obj
-      when Integer then parse_integer(obj)
-      when String then parse_string(obj)
-      else raise ArgumentError, 'invalid time'
-      end
+    def self.parse(value)
+      Time::Parser.parse(value)
     end
-
-    def self.parse_integer(value)
-      hour = value / 100
-      minute = value % 100
-      new(hour, minute)
-    end
-
-    def self.parse_string(str)
-      matches = str.match(/\A(?<hour>\d{1,2}):(?<minute>\d{2})\z/)
-      raise ArgumentError, 'invalid time string' unless matches
-
-      new(matches[:hour].to_i, matches[:minute].to_i)
-    end
-
-    private_class_method :parse_integer, :parse_string
 
     ##
     # Compares the time to another one.
@@ -98,9 +74,9 @@ module DayTime
     end
 
     ##
-    # Gets the next minute as new `DayTime::Time`.
+    # Gets the next minute as new `Minutely::Time`.
     #
-    # @return [DayTime::Time]
+    # @return [Minutely::Time]
     def succ
       return self.class.new((hour + 1) % 24, 0) if minute == 59
 

@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
-require 'day_time'
-require 'simplecov-cobertura'
+require 'coveralls'
+require 'minutely'
 
-LIB_DIR = File.expand_path('../lib', __dir__)
-
-SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
-SimpleCov.start do
-  add_filter do |source_file|
-    !source_file.filename.start_with?(LIB_DIR)
-  end
-end
+Coveralls.wear!
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

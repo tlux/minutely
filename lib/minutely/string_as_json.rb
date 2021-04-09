@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DayTime
+module Minutely
   ##
   # A mixin to use #to_s as JSON representation of the including object.
   module StringAsJson

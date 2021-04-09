@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
-module DayTime
+module Minutely
   ##
   # A class that represents a range of day times that is only using hours
   # and minutes.
   #
   # @!attribute [r] from
-  #   @return [DayTime::Time]
+  #   @return [Minutely::Time]
   #
   # @!attribute [r] to
-  #   @return [DayTime::Time]
+  #   @return [Minutely::Time]
   class TimeRange
+    autoload :Parser, 'minutely/time_range/parser'
+
     include Comparable
     include Enumerable
     include StringAsJson
@@ -18,16 +20,16 @@ module DayTime
     attr_reader :from, :to
 
     ##
-    # Builds a new `DayTime::TimeRange`.
+    # Builds a new `Minutely::TimeRange`.
     #
-    # @param from [DayTime::Time, String, Integer]
+    # @param from [Minutely::Time, String, Integer]
     #
-    # @param to [DayTime::Time, String, Integer]
+    # @param to [Minutely::Time, String, Integer]
     #
     # @raise [ArgumentError] when first or second argument evaluates to `nil`.
     def initialize(from, to, exclude_end: false)
-      @from = DayTime::Time.parse(from)
-      @to = DayTime::Time.parse(to)
+      @from = Minutely::Time.parse(from)
+      @to = Minutely::Time.parse(to)
 
       raise ArgumentError, 'invalid time range' if @from.nil? || @to.nil?
 
@@ -42,53 +44,21 @@ module DayTime
       @exclude_end
     end
 
-    class << self
-      ##
-      # Parses the given input and returns a `DayTime::TimeRange` or `nil`,
-      # respectively.
-      #
-      # @param obj [DayTime::TimeRange, Array, Hash, String, nil]
-      #
-      # @return [DayTime::TimeRange, nil]
-      #
-      # @raise [ArgumentError] when the object does not represent a valid time
-      #   range
-      #
-      # @raise [KeyError] when the given Hash does not contain the required keys
-      # (`:from` and `:to`)
-      def parse(obj)
-        case obj
-        when nil then nil
-        when self then obj
-        when Array then parse_array(obj)
-        when Hash then parse_hash(obj)
-        when String then parse_string(obj)
-        else raise ArgumentError, 'invalid time range'
-        end
-      end
-
-      private
-
-      def parse_array(items)
-        if items.length != 2 || items.any? { |item| Utils.blank?(item) }
-          raise ArgumentError, 'invalid time range'
-        end
-
-        new(*items)
-      end
-
-      def parse_hash(hash)
-        return nil if hash.empty?
-
-        parse_array(hash.fetch_values(:from, :to))
-      end
-
-      def parse_string(str)
-        return nil if str.empty?
-
-        items = str.split('-').map(&:strip)
-        parse_array(items)
-      end
+    ##
+    # Parses the given input and returns a `Minutely::TimeRange` or `nil`,
+    # respectively.
+    #
+    # @param value [Minutely::TimeRange, Array, Hash, String, nil]
+    #
+    # @return [Minutely::TimeRange, nil]
+    #
+    # @raise [ArgumentError] when the object does not represent a valid time
+    #   range
+    #
+    # @raise [KeyError] when the given Hash does not contain the required keys
+    # (`:from` and `:to`)
+    def self.parse(value)
+      TimeRange::Parser.parse(value)
     end
 
     ##
@@ -107,7 +77,7 @@ module DayTime
     #
     # @return [Boolean]
     def include?(time)
-      time = DayTime::Time.parse(time)
+      time = Minutely::Time.parse(time)
       end_predicate = exclude_end? ? time < to : time <= to
       from <= time && end_predicate
     end
@@ -118,7 +88,7 @@ module DayTime
     #
     # @yield [time] A block called for every range element.
     #
-    # @yieldparam time [DayTime::Time] The range element.
+    # @yieldparam time [Minutely::Time] The range element.
     #
     # @return [Enumerator, void]
     def each
