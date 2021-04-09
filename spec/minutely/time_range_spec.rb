@@ -154,7 +154,7 @@ RSpec.describe Minutely::TimeRange do
       end
 
       it 'raises when range has bad integer type' do
-        expect { described_class.parse(9999..10000) }
+        expect { described_class.parse(9999..10_000) }
           .to raise_error ArgumentError, 'invalid hour'
       end
     end
