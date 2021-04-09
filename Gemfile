@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-source 'http://gems.dev.i22.de/'
+source 'https://rubygems.org'
 
 # Specify your gem's dependencies in minutely.gemspec
 gemspec
