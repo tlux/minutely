@@ -20,9 +20,9 @@ module DayTime
     ##
     # Builds a new `DayTime::TimeRange`.
     #
-    # @param from [DayTime::Time, String, Fixnum]
+    # @param from [DayTime::Time, String, Integer]
     #
-    # @param to [DayTime::Time, String, Fixnum]
+    # @param to [DayTime::Time, String, Integer]
     #
     # @raise [ArgumentError] when first or second argument evaluates to `nil`.
     def initialize(from, to, exclude_end: false)
