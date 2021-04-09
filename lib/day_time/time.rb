@@ -5,10 +5,10 @@ module DayTime
   # A class that represents a day time by using only hours and minutes.
   #
   # @!attribute [r] hour
-  #   @return [Fixnum]
+  #   @return [Integer]
   #
   # @!attribute [r] minute
-  #   @return [Fixnum]
+  #   @return [Integer]
   class Time
     include Comparable
     include StringAsJson
@@ -19,9 +19,9 @@ module DayTime
     ##
     # Builds a new `DayTime::Time`.
     #
-    # @param hour [Fixnum] a number between 0 and 23
+    # @param hour [Integer] a number between 0 and 23
     #
-    # @param minute [Fixnum] a number between 0 and 59
+    # @param minute [Integer] a number between 0 and 59
     #
     # @raise [ArgumentError] when arguments are not within the specified ranges
     def initialize(hour, minute)
@@ -52,7 +52,7 @@ module DayTime
     # Parses the given input and returns a `DayTime::Time` or `nil`,
     # respectively.
     #
-    # @param obj [DayTime::Time, #hour, #min, Fixnum, String, nil]
+    # @param obj [DayTime::Time, #hour, #min, Integer, String, nil]
     #
     # @return [DayTime::Time, nil]
     #

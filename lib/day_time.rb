@@ -16,7 +16,7 @@ module DayTime
   ##
   # Parses the given input and returns a `DayTime::Time` or `nil`, respectively.
   #
-  # @param obj [DayTime::Time, #hour, #min, Fixnum, String, nil]
+  # @param obj [DayTime::Time, #hour, #min, Integer, String, nil]
   #
   # @return [DayTime::Time, nil]
   #
