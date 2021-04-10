@@ -83,8 +83,8 @@ am (0:00).
 
 Create a new time range:
 
-time1 = Minutely::Time.new(9, 3)
 ```ruby
+time1 = Minutely::Time.new(9, 3)
 time2 = Minutely::Time.new(21, 42)
 
 Minutely::TimeRange.new(time1, time2).to_s # => "09:03-21:42"
